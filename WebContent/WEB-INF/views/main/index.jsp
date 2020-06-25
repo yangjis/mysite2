@@ -1,10 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import = "com.javaex.vo.UserVo" %>
+
+<%
+	UserVo  authUser= (UserVo)session.getAttribute("authUser"); 
+%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>mySite2</title>
 <link href="/mysite2/assets/css/mysite.css" rel="stylesheet" type="text/css">
 <link href="/mysite2/assets/css/main.css" rel="stylesheet" type="text/css">
 
@@ -14,22 +19,23 @@
 	<div id="wrap">
 
 		<div id="header">
-			<h1><a href="">MySite</a></h1>
+			<h1><a href="/mysite2/main">MySite</a></h1>
 			
-			<!-- 
+			<%if(authUser == null){ %>
+			
 			<ul>
-				<li><a href="">로그인</a></li>
-				<li><a href="">회원가입</a></li>
+				<li><a href="/mysite2/user?action=loginForm">로그인</a></li>
+				<li><a href="/mysite2/user?action=joinForm">회원가입</a></li>
 			</ul>
-			-->
+			<%}else{ %>
 			<ul>
-				<li>황일영 님 안녕하세요^^</li>
+				<li><%=authUser.getName() %>님 안녕하세요^^</li>
 				
 				
-				<li><a href="">로그아웃</a></li>
-				<li><a href="">회원정보수정</a></li>
+				<li><a href="/mysite2/user?action=logout">로그아웃</a></li>
+				<li><a href="/mysite2/user?action=modifyForm">회원정보수정</a></li>
 			</ul>
-			
+			<%} %>
 		</div>
 		<!-- //header -->
 
@@ -57,7 +63,7 @@
 				<div id="greetings">
 					<p class="text-xlarge">
 						<span class="bold">안녕하세요!!<br>
-						황일영의 MySite에 오신 것을 환영합니다.<br>
+						양지선님의 MySite에 오신 것을 환영합니다.<br>
 						<br>
 						이 사이트는 웹 프로그램밍 실습과제 예제 사이트입니다.<br>
 						</span>
@@ -85,7 +91,7 @@
 		<div class="clear"></div>
 		
 		<div id="footer">
-			Copyright ⓒ 2020 황일영. All right reserved
+			Copyright ⓒ 2020 양지선. All right reserved
 		</div>
 		<!-- //footer -->
 
