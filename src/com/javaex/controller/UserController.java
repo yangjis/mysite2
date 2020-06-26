@@ -51,7 +51,7 @@ public class UserController extends HttpServlet {
 			UserDao dao = new UserDao();
 			UserVo authVo = dao.login(id, password);
 			
-			if(authVo.getId() == null) { //로그인 실패
+			if(authVo.getName() == null) { //로그인 실패
 				System.out.println("로그인 실패");
 				WebUtil.redirect(rq, rs, "/mysite2/user?action=loginForm&result=fail");
 				
@@ -89,6 +89,7 @@ public class UserController extends HttpServlet {
 			dao.update(authVo);
 			
 			HttpSession session = rq.getSession();
+			authVo.setPassword("");
 			session.setAttribute("authUser", authVo);
 			WebUtil.redirect(rq, rs, "/mysite2/main");
 			
