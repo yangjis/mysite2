@@ -37,7 +37,7 @@ public class GuestBookController extends HttpServlet {
 			
 		}else if("addList".equals(action)) {
 			String name = rq.getParameter("name");
-			String password = rq.getParameter("password");
+			String password = rq.getParameter("pass");
 			String content = rq.getParameter("content");
 			
 			GuestVo vo = new GuestVo(name, password, content);

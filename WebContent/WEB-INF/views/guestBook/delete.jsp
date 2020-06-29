@@ -6,7 +6,6 @@
 
 <%
 	String no = request.getParameter("no");
-
 %>
 <!DOCTYPE html>
 <html>
@@ -70,7 +69,7 @@
 						</tr>
 					</table>
 					<input type='hidden' name="action" value="deleteAction">
-					<input type='hidden' name="no" value="<%=no%>">
+					<input type='hidden' name="no" value="<%= no%>">
 				</form>
 				
 			</div>

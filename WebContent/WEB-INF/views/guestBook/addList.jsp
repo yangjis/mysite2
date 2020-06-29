@@ -65,7 +65,7 @@
 								<th><label class="form-text" for="input-uname">이름</label></td>
 								<td><input id="input-uname" type="text" name="name"></td>
 								<th><label class="form-text" for="input-pass">패스워드</label></td>
-								<td><input id="input-pass"type="password" name="pass"></td>
+								<td><input id="input-pass" type="password" name="pass"></td>
 							</tr>
 							<tr>
 								<td colspan="4"><textarea name="content" cols="72" rows="5"></textarea></td>
@@ -90,16 +90,16 @@
 							<col style="width: 10%;">
 					</colgroup>
 					<tr>
-						<td><%=vo.getNo() %></td>
-						<td><%=vo.getName() %></td>
-						<td><%=vo.getReg_date() %></td>
-						<td><a href="/mysite2/guestBook?action=delete&no=<%=vo.getNo()%>">[삭제]</a></td>
+						<td><%= vo.getNo()%></td>
+						<td><%= vo.getName()%></td>
+						<td><%= vo.getReg_date()%></td>
+						<td><a href="/mysite2/guestBook?action=delete&no=<%= vo.getNo()%>">[삭제]</a></td>
 					</tr>
 					<tr>
-						<td colspan=4 class="text-left"><%=vo.getContent() %></td>
+						<td colspan=4 class="text-left"><%= vo.getContent() %></td>
 					</tr>
 				</table>
-				<%} %>	
+				<% } %>	
 				<!-- //guestRead -->
 				
 			</div>
