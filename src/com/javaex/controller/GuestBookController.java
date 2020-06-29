@@ -55,8 +55,6 @@ public class GuestBookController extends HttpServlet {
 			int no = Integer.parseInt(no0);
 			String inputNum = rq.getParameter("pass");
 			
-			System.out.println(no + inputNum);
-			
 			GuestDao dao = new GuestDao();
 			dao.delete(no, inputNum);
 			
