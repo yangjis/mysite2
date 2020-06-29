@@ -24,7 +24,6 @@ public class GuestBookController extends HttpServlet {
    
 	protected void doGet(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
 		rq.setCharacterEncoding("UTF-8");
-		System.out.println("guestBook");
 		
 		String action = rq.getParameter("action");
 		if("list".equals(action)) {
