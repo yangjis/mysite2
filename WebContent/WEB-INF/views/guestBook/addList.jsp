@@ -1,12 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%@page import = "com.javaex.vo.GuestVo"%>
-<%@page import = "java.util.List" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<%
-	List<GuestVo> gList = (List<GuestVo>)request.getAttribute("gList");
-%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,16 +17,6 @@
 
 		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 		<!-- //header -->
-
-		<div id="nav">
-			<ul>
-				<li><a href="/mysite2/guestBook?action=list">방명록</a></li>
-				<li><a href="">갤러리</a></li>
-				<li><a href="">게시판</a></li>
-				<li><a href="">입사지원서</a></li>
-			</ul>
-			<div class="clear"></div>
-		</div>
 		<!-- //nav -->
 
 		<jsp:include page="/WEB-INF/views/include/asideGuest.jsp"></jsp:include>
@@ -81,7 +66,7 @@
 					
 				</form>	
 				
-				<%for(GuestVo vo: gList){%>
+				<c:forEach items="${requestScope.gList}" var="vo">
 				<table class="guestRead">
 					<colgroup>
 							<col style="width: 10%;">
@@ -90,16 +75,16 @@
 							<col style="width: 10%;">
 					</colgroup>
 					<tr>
-						<td><%= vo.getNo()%></td>
-						<td><%= vo.getName()%></td>
-						<td><%= vo.getReg_date()%></td>
-						<td><a href="/mysite2/guestBook?action=delete&no=<%= vo.getNo()%>">[삭제]</a></td>
+						<td> ${vo.no}</td>
+						<td> ${vo.name}</td>
+						<td>${vo.reg_date}</td>
+						<td><a href="/mysite2/guestBook?action=delete&no=${vo.no}">[삭제]</a></td>
 					</tr>
 					<tr>
-						<td colspan=4 class="text-left"><%= vo.getContent() %></td>
+						<td colspan=4 class="text-left">${vo.content}</td>
 					</tr>
 				</table>
-				<% } %>	
+				</c:forEach>
 				<!-- //guestRead -->
 				
 			</div>

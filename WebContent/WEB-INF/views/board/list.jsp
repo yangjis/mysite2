@@ -15,18 +15,7 @@
 
 		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 		<!-- //header -->
-		
-		<div id="nav">
-			<ul>
-				<li><a href="/mysite2/guestBook?action=list">방명록</a></li>
-				<li><a href="">갤러리</a></li>
-				<li><a href="/mysite2/board?action=list">게시판</a></li>
-				<li><a href="">입사지원서</a></li>
-			</ul>
-			<div class="clear"></div>
-		</div>
-		<!-- //nav -->
-
+	
 		<jsp:include page="/WEB-INF/views/include/asideBoard.jsp"></jsp:include>
 		<!-- //aside -->
 
@@ -47,9 +36,10 @@
 
 			<div id="board">
 				<div id="list">
-					<form action="" method="">
+					<form action="board" method="get">
 						<div class="form-group text-right">
-							<input type="text">
+							<input type="text" name="keyword">
+							<input type="hidden" name = "action" value="search">
 							<button type="submit" id=btn_search>검색</button>
 						</div>
 					</form>

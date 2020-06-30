@@ -83,7 +83,7 @@ public class UserDao {
 		
 		try {
 
-			String query = "select no, id, name from users where id = ? and password = ?";
+			String query = "select no, id, name, gender from users where id = ? and password = ?";
 
 			pstmt = conn.prepareStatement(query);
 			
@@ -96,10 +96,12 @@ public class UserDao {
 				int no = rs.getInt("no");
 				String name = rs.getString("name");
 				String id = rs.getString("id");
+				String gender = rs.getString("gender");
 				
 				vo.setNo(no);
 				vo.setName(name);
 				vo.setId(id);
+				vo.setGender(gender);
 			}
 
 		} catch (SQLException e) {

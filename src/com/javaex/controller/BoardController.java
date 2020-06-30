@@ -63,6 +63,12 @@ public class BoardController extends HttpServlet {
 			int user_no = Integer.parseInt(rq.getParameter("user_no"));
 			dao.delete(no, user_no);
 			WebUtil.redirect(rq, rs, "/mysite2/board?action=list");
+			
+		}else if("search".equals(action)) {
+			String keyword = rq.getParameter("keyword");
+			List<BoardVo> bList = dao.search(keyword);
+			rq.setAttribute("bList", bList);
+			WebUtil.forword(rq, rs,"/WEB-INF/views/board/list.jsp");
 		}
 		
 	}

@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "com.javaex.vo.UserVo" %>
-    
-<%
-	UserVo  authUser = (UserVo)session.getAttribute("authUser"); 
-%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,16 +17,6 @@
 
 		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 		<!-- //header -->
-
-		<div id="nav">
-			<ul>
-				<li><a href="/mysite2/guestBook?action=list">방명록</a></li>
-				<li><a href="">갤러리</a></li>
-				<li><a href="">게시판</a></li>
-				<li><a href="">입사지원서</a></li>
-			</ul>
-			<div class="clear"></div>
-		</div>
 		<!-- //nav -->
 
 		<jsp:include page="/WEB-INF/views/include/asideUser.jsp"></jsp:include>
@@ -76,20 +63,23 @@
 						<!-- //나이 -->
 						<div class="form-group">
 							<span class="form-text">성별</span> 
-							<%if("male".equals(authUser.getGender())){ %>
+							
+							<c:if test="${sessionScope.authUser.gender eq 'male'}">
+							
 							<label for="rdo-male">남</label> 
 							<input type="radio" id="rdo-male" name="gender" value="male" checked = "checked"> 
 							
 							<label for="rdo-female">여</label> 
 							<input type="radio" id="rdo-female" name="gender" value="female"> 
-							<%}else{ %>
+							</c:if>
 							
+							<c:if test="${sessionScope.authUser.gender eq 'female'}">
 							<label for="rdo-male">남</label> 
 							<input type="radio" id="rdo-male" name="gender" value="male">
 							
 							<label for="rdo-female">여</label> 
 							<input type="radio" id="rdo-female" name="gender" value="female" checked = "checked"> 
-							<%} %>
+							</c:if>
 							<input type = "hidden" name = "no", value="${sessionScope.authUser.no}">
 						</div>
 

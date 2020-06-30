@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.javaex.dao.GuestDao;
 import com.javaex.util.WebUtil;
+import com.javaex.vo.BoardVo;
 import com.javaex.vo.GuestVo;
 
 /**
@@ -31,7 +32,6 @@ public class GuestBookController extends HttpServlet {
 			List<GuestVo> gList = dao.getList();
 			
 			rq.setAttribute("gList", gList);
-			
 			WebUtil.forword(rq, rs,"/WEB-INF/views/guestBook/addList.jsp");
 			
 		}else if("addList".equals(action)) {
@@ -46,8 +46,9 @@ public class GuestBookController extends HttpServlet {
 			WebUtil.redirect(rq, rs,"/mysite2/guestBook?action=list");
 			
 		}else if("delete".equals(action)) {
-			RequestDispatcher rd = rq.getRequestDispatcher("/WEB-INF/views/guestBook/delete.jsp");
-			rd.forward(rq, rs);
+			String no = rq.getParameter("no");
+			rq.setAttribute("no", no);
+			WebUtil.forword(rq, rs, "/WEB-INF/views/guestBook/delete.jsp");
 			
 		}else if("deleteAction".equals(action)) {
 			String no0 = rq.getParameter("no");

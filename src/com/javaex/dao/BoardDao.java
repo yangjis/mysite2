@@ -61,7 +61,7 @@ public class BoardDao {
 		getConnection();
 		try {
 
-			String query = "select b.no no, b.title title, b.content content, b.hit hit, b.reg_date reg_date, b.user_no user_no, u.name name from board b,(select name, no from users)u where b.user_no = u.no(+)";
+			String query = "select b.no no, b.title title, b.content content, b.hit hit, TO_CHAR(b.reg_date, 'YY/MM/DD HH24:mi') reg_date, b.user_no user_no, u.name name from board b,(select name, no from users)u where b.user_no = u.no(+)";
 
 			pstmt = conn.prepareStatement(query); 
 
@@ -96,8 +96,8 @@ public class BoardDao {
 		
 		try {
 
-			String query = "select b.no no, b.title title, b.content content, b.hit+1 hit, b.reg_date reg_date, b.user_no user_no, u.name name from board b,(select name, no from users)u where b.user_no = u.no(+) and b.no = ?";
-
+			String query = "select b.no no, b.title title, b.content content, b.hit hit, b.reg_date reg_date, b.user_no user_no, u.name name from board b,(select name, no from users)u where b.user_no = u.no(+) and b.no = ?";
+			
 			pstmt = conn.prepareStatement(query);
 			
 			pstmt.setInt(1, boardNo);
@@ -122,7 +122,12 @@ public class BoardDao {
 				vo.setUser_no(user_no);
 				vo.setName(name);
 			}
-
+			
+			String query1 = "update board set hit = hit + 1 where no = ?";
+			pstmt = conn.prepareStatement(query1);
+			pstmt.setInt(1, boardNo);
+			pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		}
@@ -184,7 +189,7 @@ public class BoardDao {
 		return count;
 	}
 	
-public int delete(int no, int user_no) {
+	public int delete(int no, int user_no) {
 		
 		int count = 0;
 		getConnection();
@@ -209,5 +214,44 @@ public int delete(int no, int user_no) {
 		close();
 		return count;
 		
+	}
+
+	public List<BoardVo> search(String keyword){
+		List<BoardVo> personList = new ArrayList<BoardVo>();
+
+		getConnection();
+
+		try {
+
+			// 3. SQL문 준비 / 바인딩 / 실행 --> 완성된 sql문을 가져와서 작성할것
+			String query = "select no, title, content, hit, reg_date, user_no from board where title like ?";
+
+		
+			pstmt = conn.prepareStatement(query); // 쿼리로 만들기
+			pstmt.setString(1, '%' + keyword + '%');
+			
+			rs = pstmt.executeQuery();
+
+			// 4.결과처리
+			while (rs.next()) {
+				int no = rs.getInt("no");
+				String title = rs.getString("title");
+				String content = rs.getString("content");
+				int hit = rs.getInt("hit");
+				String reg_date = rs.getString("reg_date");
+				int user_no = rs.getInt("user_no");
+
+				BoardVo vo = new BoardVo(no, title, content, hit, reg_date, user_no);
+				personList.add(vo);
+			}
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+
+		close();
+
+		return personList;
+
 	}
 }

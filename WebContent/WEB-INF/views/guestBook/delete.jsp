@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     
-<%@page import = "com.javaex.vo.GuestVo"%>
-<%@page import = "com.javaex.dao.GuestDao" %>
-
-<%
-	String no = request.getParameter("no");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,15 +17,6 @@
 		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 		<!-- //header -->
 
-		<div id="nav">
-			<ul>
-				<li><a href="/mysite2/guestBook?action=list">방명록</a></li>
-				<li><a href="">갤러리</a></li>
-				<li><a href="">게시판</a></li>
-				<li><a href="">입사지원서</a></li>
-			</ul>
-			<div class="clear"></div>
-		</div>
 		<!-- //nav -->
 
 		<jsp:include page="/WEB-INF/views/include/asideGuest.jsp"></jsp:include>
@@ -69,7 +54,7 @@
 						</tr>
 					</table>
 					<input type='hidden' name="action" value="deleteAction">
-					<input type='hidden' name="no" value="<%= no%>">
+					<input type='hidden' name="no" value="${requestScope.no }">
 				</form>
 				
 			</div>

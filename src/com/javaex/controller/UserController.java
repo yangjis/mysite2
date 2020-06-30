@@ -21,12 +21,9 @@ public class UserController extends HttpServlet {
 		String action = rq.getParameter("action");
 		
 		if("joinForm".equals(action)) {
-			System.out.println(action);
-			
 			WebUtil.forword(rq, rs, "/WEB-INF/views/user/joinForm.jsp");
 			
 		}else if("join".equals(action)){
-			System.out.println(action);
 			
 			String id = rq.getParameter("id");
 			String password = rq.getParameter("password");
@@ -39,11 +36,9 @@ public class UserController extends HttpServlet {
 			WebUtil.forword(rq, rs, "/WEB-INF/views/user/joinOK.jsp");
 			
 		}else if("loginForm".equals(action)) {
-			System.out.println(action);
 			WebUtil.forword(rq, rs, "/WEB-INF/views/user/loginForm.jsp");
 			
 		}else if("login".equals(action)) {
-			System.out.println(action);
 			
 			String id = rq.getParameter("id");
 			String password = rq.getParameter("password");
@@ -72,7 +67,6 @@ public class UserController extends HttpServlet {
 			
 			WebUtil.redirect(rq, rs, "/mysite2/main");
 		}else if("modifyForm".equals(action)) {
-			System.out.println(action);
 			WebUtil.forword(rq, rs, "/WEB-INF/views/user/modifyForm.jsp");
 			
 		}else if("modify".equals(action)) {
@@ -86,6 +80,7 @@ public class UserController extends HttpServlet {
 			
 			UserDao dao = new UserDao();
 			UserVo authVo = new UserVo(no, id, inputPassword,name,gender);
+			
 			dao.update(authVo);
 			
 			HttpSession session = rq.getSession();
