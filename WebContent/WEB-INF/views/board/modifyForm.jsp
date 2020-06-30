@@ -48,43 +48,44 @@
 
 			<div id="board">
 				<div id="modifyForm">
-					<form action="#" method="get">
+					<form action="/mysite2/board" method="get">
 						<!-- 작성자 -->
 						<div class="form-group">
 							<span class="form-text">작성자</span>
-							<span class="form-value"></span>
+							<span class="form-value">${requestScope.getBoard.name }</span>
 						</div>
 						
 						<!-- 조회수 -->
 						<div class="form-group">
 							<span class="form-text">조회수</span>
-							<span class="form-value"></span>
+							<span class="form-value">${requestScope.getBoard.hit }</span>
 						</div>
 						
 						<!-- 작성일 -->
 						<div class="form-group">
 							<span class="form-text">작성일</span>
-							<span class="form-value"></span>
+							<span class="form-value">${requestScope.getBoard.reg_date }</span>
 						</div>
 						
 						<!-- 제목 -->
 						<div class="form-group">
 							<label class="form-text" for="txt-title">제목</label>
-							<input type="text" id="txt-title" name="" value="">
+							<input type="text" id="txt-title" name="title" value="${requestScope.getBoard.title }">
 						</div>
-					
+						<input type="hidden" name="action" value="update">
+						<input type="hidden" name="no" value="${requestScope.getBoard.no}">
+						<input type="hidden" name="user_no" value="${requestScope.getBoard.user_no}">
 						
 					
 						<!-- 내용 -->
 						<div class="form-group">
-							<textarea id="txt-content">
-								${requestScope.getBoard.content }
-							</textarea>
+							<textarea id="txt-content" name="content">${requestScope.getBoard.content }</textarea>
 						</div>
 						
-						<a id="btn_cancel" href="">취소</a>
+						<a id="btn_cancel" href="/mysite2/board?action=list">취소</a>
+						<c:if test="${sessionScope.authUser.no eq getBoard.user_no}">
 						<button id="btn_modify" type="submit" >수정</button>
-						
+						</c:if>
 					</form>
 	                <!-- //form -->
 				</div>

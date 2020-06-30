@@ -26,14 +26,43 @@ public class BoardController extends HttpServlet {
 		if("list".equals(action)) {
 			List<BoardVo> bList = dao.list();
 			rq.setAttribute("bList", bList);
-			
 			WebUtil.forword(rq, rs,"/WEB-INF/views/board/list.jsp");
+			
 		}else if("read".equals(action)) {
 			BoardVo boardVo = dao.getBoard(Integer.parseInt(rq.getParameter("no")));
 			rq.setAttribute("getBoard", boardVo);
 			WebUtil.forword(rq, rs, "/WEB-INF/views/board/read.jsp");
+			
 		}else if("modifyForm".equals(action)) {
+			BoardVo boardVo = dao.getBoard(Integer.parseInt(rq.getParameter("no")));
+			rq.setAttribute("getBoard", boardVo);
 			WebUtil.forword(rq, rs, "/WEB-INF/views/board/modifyForm.jsp");
+		
+		}else if("update".equals(action)) {
+			int no = Integer.parseInt(rq.getParameter("no"));
+			String title = rq.getParameter("title");
+			String content = rq.getParameter("content");
+			int user_no = Integer.parseInt(rq.getParameter("user_no"));
+			
+			dao.update(new BoardVo(no, title, content, user_no));
+			WebUtil.redirect(rq, rs, "/mysite2/board?action=list");
+		
+		}else if("writeForm".equals(action)) {
+			WebUtil.forword(rq, rs, "/WEB-INF/views/board/writeForm.jsp");
+		
+		}else if("insert".equals(action)) {
+			int user_no = Integer.parseInt(rq.getParameter("user_no"));
+			String title = rq.getParameter("title");
+			String content = rq.getParameter("content");
+			dao.insert(new BoardVo(title, content, user_no));
+			
+			WebUtil.redirect(rq, rs, "/mysite2/board?action=list");
+		
+		}else if("delete".equals(action)) {
+			int no = Integer.parseInt(rq.getParameter("no"));
+			int user_no = Integer.parseInt(rq.getParameter("user_no"));
+			dao.delete(no, user_no);
+			WebUtil.redirect(rq, rs, "/mysite2/board?action=list");
 		}
 		
 	}

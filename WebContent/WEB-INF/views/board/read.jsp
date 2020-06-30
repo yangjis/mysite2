@@ -75,11 +75,9 @@
 					
 						<!-- 내용 -->
 						<div id="txt-content">
-							<span class="form-value" >
-								${requestScope.getBoard.content }
-							</span>
+							<span class="form-value" >${requestScope.getBoard.content }</span>
 						</div>
-						<c:if test="${authUser.no eq getBoard.user_no}">
+						<c:if test="${sessionScope.authUser.no eq getBoard.user_no}">
 						<a id="btn_modify" href="/mysite2/board?action=modifyForm&no=${requestScope.getBoard.no }">수정</a>
 						</c:if>
 						<a id="btn_modify" href="/mysite2/board?action=list">목록</a>

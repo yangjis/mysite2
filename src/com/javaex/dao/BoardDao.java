@@ -61,19 +61,19 @@ public class BoardDao {
 		getConnection();
 		try {
 
-			String query = "select b.no boardNo, b.title title, b.content content, b.hit hit, b.reg_date reg_date, u.no userNo, u.name name from board b,(select name, no from users)u where b.no = u.no(+)";
+			String query = "select b.no no, b.title title, b.content content, b.hit hit, b.reg_date reg_date, b.user_no user_no, u.name name from board b,(select name, no from users)u where b.user_no = u.no(+)";
 
 			pstmt = conn.prepareStatement(query); 
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				int no = rs.getInt("boardNo");
+				int no = rs.getInt("no");
 				String title = rs.getString("title");
 				String content = rs.getString("content");
 				int hit = rs.getInt("hit");
 				String reg_date = rs.getString("reg_date");
-				int user_no = rs.getInt("userNo");
+				int user_no = rs.getInt("user_no");
 				String name = rs.getString("name");
 
 				BoardVo boardVo = new BoardVo(no, title, content, hit, reg_date, user_no, name);
@@ -96,7 +96,7 @@ public class BoardDao {
 		
 		try {
 
-			String query = "select b.no boardNo, b.title title, b.content content, b.hit+1 hit, b.reg_date reg_date, u.no userNo, u.name name from board b,(select name, no from users)u where b.no = u.no(+) and b.no = ?";
+			String query = "select b.no no, b.title title, b.content content, b.hit+1 hit, b.reg_date reg_date, b.user_no user_no, u.name name from board b,(select name, no from users)u where b.user_no = u.no(+) and b.no = ?";
 
 			pstmt = conn.prepareStatement(query);
 			
@@ -105,13 +105,14 @@ public class BoardDao {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				int no = rs.getInt("boardNo");
+				int no = rs.getInt("no");
 				String title = rs.getString("title");
 				String content = rs.getString("content");
 				int hit = rs.getInt("hit");
 				String reg_date = rs.getString("reg_date");
-				int user_no = rs.getInt("userNo");
+				int user_no = rs.getInt("user_no");
 				String name = rs.getString("name");
+				
 				
 				vo.setNo(no);
 				vo.setTitle(title);
@@ -130,4 +131,83 @@ public class BoardDao {
 		return vo;
 	}
 	
+	public int update(BoardVo vo) {
+		int count = 0;
+		getConnection();
+
+		try {
+
+			String query = "update board set title = ?, content = ?, reg_date = sysdate where no=? and user_no=?"; 
+
+			pstmt = conn.prepareStatement(query); // 쿼리로 만들기
+
+			pstmt.setString(1, vo.getTitle()); // ?(물음표) 중 1번째, 순서중요
+			pstmt.setString(2, vo.getContent()); // ?(물음표) 중 3번째, 순서중요
+			pstmt.setInt(3, vo.getNo());
+			pstmt.setInt(4, vo.getUser_no()); // ?(물음표) 중 4번째, 순서중요
+
+			count = pstmt.executeUpdate(); // 쿼리문 실행
+
+			// 4.결과처리
+			// System.out.println(count + "건 수정되었습니다.");
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+
+		close();
+		return count;
+	}
+	
+	public int insert(BoardVo vo) {
+		int count = 0;
+		getConnection();
+
+		try {
+
+			// 3. SQL문 준비 / 바인딩 / 실행
+			String query = "insert into board values(seq_board_no.nextval, ?, ?, 0, sysdate, ?)"; 
+
+			pstmt = conn.prepareStatement(query); // 쿼리로 만들기
+
+			pstmt.setString(1, vo.getTitle()); // ?(물음표) 중 1번째, 순서중요
+			pstmt.setString(2, vo.getContent()); // ?(물음표) 중 2번째, 순서중요
+			pstmt.setInt(3, vo.getUser_no()); // ?(물음표) 중 3번째, 순서중요
+
+			count = pstmt.executeUpdate(); // 쿼리문 실행
+
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+		close();
+		return count;
+	}
+	
+public int delete(int no, int user_no) {
+		
+		int count = 0;
+		getConnection();
+
+		try {
+			// 3. SQL문 준비 / 바인딩 / 실행
+			String query = "delete from board where no = ? and user_no = ?"; 
+			pstmt = conn.prepareStatement(query); // 쿼리로 만들기
+
+			pstmt.setInt(1, no);// ?(물음표) 중 1번째, 순서중요
+			pstmt.setInt(2, user_no);
+
+			count = pstmt.executeUpdate(); // 쿼리문 실행
+
+			// 4.결과처리
+			// System.out.println(count + "건 삭제되었습니다.");
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+
+		close();
+		return count;
+		
+	}
 }
