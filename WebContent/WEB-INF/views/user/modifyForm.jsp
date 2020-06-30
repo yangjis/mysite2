@@ -80,14 +80,14 @@
 							<label for="rdo-female">여</label> 
 							<input type="radio" id="rdo-female" name="gender" value="female" checked = "checked"> 
 							</c:if>
-							<input type = "hidden" name = "no", value="${sessionScope.authUser.no}">
+							<input type = "hidden" name = "no" value="${sessionScope.authUser.no}">
 						</div>
 
 						<!-- 버튼영역 -->
 		                <div class="button-area">
 		                    <button type="submit" id="btn-submit">회원정보수정</button>
 		                </div>
-		                <input type = "hidden" name = "action", value="modify">
+		                <input type = "hidden" name = "action" value="modify">
 						
 					</form>
 				
