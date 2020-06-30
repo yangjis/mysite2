@@ -61,7 +61,7 @@ public class BoardDao {
 		getConnection();
 		try {
 
-			String query = "select b.no no, b.title title, b.content content, b.hit hit, TO_CHAR(b.reg_date, 'YY/MM/DD HH24:mi') reg_date, b.user_no user_no, u.name name from board b,(select name, no from users)u where b.user_no = u.no(+)";
+			String query = "select b.no no, b.title title, b.content content, b.hit hit, TO_CHAR(b.reg_date, 'YY/MM/DD HH24:mi') reg_date, b.user_no user_no, u.name name from board b,(select name, no from users)u where b.user_no = u.no(+) order by reg_date asc";
 
 			pstmt = conn.prepareStatement(query); 
 
