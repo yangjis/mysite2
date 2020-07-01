@@ -191,9 +191,8 @@ public class BoardDao {
 		try {
 
 			// 3. SQL문 준비 / 바인딩 / 실행 --> 완성된 sql문을 가져와서 작성할것
-			String query = "select no, title, content, hit, reg_date, user_no from board where title like ?";
+			String query = "select b.no, b.title, b.content, b.hit, b.reg_date, b.user_no, u.name from board b,(select no, name from users)u where b.user_no(+) = u.no and title like ?";
 
-		
 			pstmt = conn.prepareStatement(query); // 쿼리로 만들기
 			pstmt.setString(1, '%' + keyword + '%');
 			
