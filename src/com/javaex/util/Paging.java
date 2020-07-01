@@ -1,8 +1,8 @@
-package com.javaex.vo;
+package com.javaex.util;
 
 import com.javaex.dao.BoardDao;
 
-public class PagingVo {
+public class Paging {
 	 BoardDao dao = new BoardDao(); 
 	 public int w_size = 5; // 글 개수
 	 public int p_size = w_size * 5;  // 페이지 개수
@@ -10,7 +10,7 @@ public class PagingVo {
 	 
 	 public int cur_Page = 0;
 	 
-	 public PagingVo(int w_size, int p_size, int writing_Count,  int cur_Page) {
+	 public Paging(int w_size, int p_size, int writing_Count,  int cur_Page) {
 	  this.w_size = w_size;
 	  this.p_size = p_size;
 	  this.writing_Count = writing_Count;
@@ -47,7 +47,7 @@ public class PagingVo {
 	 public static void main(String[] args) {
 	  BoardDao dao = new BoardDao();
 	  // 여러가지 매개변수로 테스트 해보시기 바랍니다.
-	  PagingVo pg = new PagingVo(10, 5,dao.allpag(), 0);
+	  Paging pg = new Paging(10, 5,dao.allpag(), 0);
 	   // 총 글의 갯수는 select count(*) from board 하면 나오겠죠 ,
 	  //현재 보고 있는 페이지 번호는 Default 1, 그리고 밑에 페이징에서 링크 걸린 i가 현재 페이지가 됩니다. 
 	  

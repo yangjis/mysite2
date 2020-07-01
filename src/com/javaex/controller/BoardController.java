@@ -8,12 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.javaex.dao.BoardDao;
+import com.javaex.util.Paging;
 import com.javaex.util.WebUtil;
 import com.javaex.vo.BoardVo;
-import com.javaex.vo.PagingVo;
 
 @WebServlet("/board")
 public class BoardController extends HttpServlet {
@@ -28,7 +27,7 @@ public class BoardController extends HttpServlet {
 			
 			int pg = Integer.parseInt(rq.getParameter("pg"));
 			
-			PagingVo pgVo = new PagingVo(5, 5,dao.allpag(),pg);
+			Paging pgVo = new Paging(5, 5,dao.allpag(),pg);
 			
 			List<BoardVo> bList = dao.list(pgVo.getWriting_Start(), pgVo.getWriting_End());
 			
