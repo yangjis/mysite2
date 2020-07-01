@@ -27,11 +27,7 @@ public class BoardController extends HttpServlet {
 		if("list".equals(action)) {
 			PagingVo pg = new PagingVo(5, 5,dao.allpag(), Integer.parseInt(rq.getParameter("pg")));
 			
-			int start = Integer.parseInt(rq.getParameter("pg"));
-			int end = 1;
-			end = end* 5;
-			
-			List<BoardVo> bList = dao.list(start, end);
+			List<BoardVo> bList = dao.list(pg.getWriting_Start(), pg.getWriting_End());
 			
 			rq.setAttribute("pg", pg);
 			rq.setAttribute("bList", bList);
