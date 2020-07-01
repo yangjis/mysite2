@@ -88,10 +88,6 @@
 									<li><a href="/mysite2/board?action=list&pg=${item }"><c:out value="${item }"/></a></li>
 									</c:if>
 									
-									<c:if test="${param.pg eq '0'}">
-										<li class="active"><a href="/mysite2/board?action=list&pg=1"><c:out value="${item }"/></a></li>
-									</c:if>
-									
 							</c:forEach>
 						
 							<li><a href="">▶</a></li>

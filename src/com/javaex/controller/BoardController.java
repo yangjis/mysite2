@@ -26,11 +26,13 @@ public class BoardController extends HttpServlet {
 		String action = rq.getParameter("action");
 		if("list".equals(action)) {
 			
-			PagingVo pg = new PagingVo(5, 5,dao.allpag(), Integer.parseInt(rq.getParameter("pg")));
+			int pg = Integer.parseInt(rq.getParameter("pg"));
 			
-			List<BoardVo> bList = dao.list(pg.getWriting_Start(), pg.getWriting_End());
+			PagingVo pgVo = new PagingVo(5, 5,dao.allpag(),pg);
 			
-			rq.setAttribute("pg", pg);
+			List<BoardVo> bList = dao.list(pgVo.getWriting_Start(), pgVo.getWriting_End());
+			
+			rq.setAttribute("pg", pgVo);
 			rq.setAttribute("bList", bList);
 			
 			WebUtil.forword(rq, rs,"/WEB-INF/views/board/list.jsp");
