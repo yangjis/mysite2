@@ -79,7 +79,7 @@
 							<li><a href="">◀</a></li>
 							
 							<c:forEach var="item" begin="${requestScope.pg.page_Start }" end="${requestScope.pg.page_End}" >
-							
+									
 									<c:if test="${param.pg eq item}">
 										<li class="active"><a href="/mysite2/board?action=list&pg=${item }"><c:out value="${item }"/></a></li>
 									</c:if>
@@ -87,7 +87,11 @@
 									<c:if test="${param.pg != item }">
 									<li><a href="/mysite2/board?action=list&pg=${item }"><c:out value="${item }"/></a></li>
 									</c:if>
-								
+									
+									<c:if test="${param.pg eq '0'}">
+										<li class="active"><a href="/mysite2/board?action=list&pg=1"><c:out value="${item }"/></a></li>
+									</c:if>
+									
 							</c:forEach>
 						
 							<li><a href="">▶</a></li>
