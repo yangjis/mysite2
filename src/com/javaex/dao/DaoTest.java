@@ -29,7 +29,7 @@ public class DaoTest {
 //		System.out.println(dao.insert(new BoardVo("안녕하세요","이것은 내용입니다.",1)));
 		
 		/* 페이징테스트 */
-//		System.out.println(dao.count(1,5));
+//		System.out.println(dao.list(1,5));
 //		System.out.println(dao.allpag());
 	}
 

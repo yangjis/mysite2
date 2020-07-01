@@ -31,7 +31,7 @@ public class BoardController extends HttpServlet {
 			int end = 1;
 			end = end* 5;
 			
-			List<BoardVo> bList = dao.count(start, end);
+			List<BoardVo> bList = dao.list(start, end);
 			
 			rq.setAttribute("pg", pg);
 			rq.setAttribute("bList", bList);
