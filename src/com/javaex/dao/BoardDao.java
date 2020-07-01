@@ -61,7 +61,7 @@ public class BoardDao {
 		getConnection();
 		try {
 
-			String query = "select b.no no, b.title title, b.content content, b.hit hit, TO_CHAR(b.reg_date, 'YY/MM/DD HH24:mi') reg_date, b.user_no user_no, u.name name from board b,(select name, no from users)u where b.user_no = u.no(+) order by reg_date asc";
+			String query = "select b.no no, b.title title, b.content content, b.hit hit, TO_CHAR(b.reg_date, 'YY/MM/DD HH24:mi') reg_date, b.user_no user_no, u.name name from board b,(select name, no from users)u where b.user_no = u.no(+) order by reg_date desc";
 
 			pstmt = conn.prepareStatement(query); 
 
@@ -253,5 +253,25 @@ public class BoardDao {
 
 		return personList;
 
+	}
+	
+	public int count() {
+		int count = 0;
+		getConnection();
+		
+		try {
+
+			String query = "SELECT rn, no, title, name, hit, reg_date, user_no FROM (SELECT rownum rn, no, title, name, hit, reg_date, user_no FROM (SELECT b.no no, b.title title, u.name name, b.hit hit, to_char(b.reg_date,'yyyy-mm-dd hh24:mi') reg_date, b.user_no user_no FROM board b, users u where b.user_no = u.no order by no desc)) where rn >= 5 and rn <= 10;";
+
+			pstmt = conn.prepareStatement(query); 
+
+			count = pstmt.executeUpdate(); 
+
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+		close();
+		return count;
 	}
 }
