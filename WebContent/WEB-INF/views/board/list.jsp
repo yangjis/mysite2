@@ -40,6 +40,7 @@
 						<div class="form-group text-right">
 							<input type="text" name="keyword">
 							<input type="hidden" name = "action" value="search">
+							<input type="hidden" name = "pg" value="1">
 							<button type="submit" id=btn_search>검색</button>
 						</div>
 					</form>
