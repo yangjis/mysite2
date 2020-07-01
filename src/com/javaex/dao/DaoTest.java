@@ -27,6 +27,7 @@ public class DaoTest {
 //		System.out.println(dao.getBoard(1));
 //		System.out.println(dao.update(new BoardVo(1,"변경 수정","내용 수정",1)));
 //		System.out.println(dao.insert(new BoardVo("안녕하세요","이것은 내용입니다.",1)));
+//		System.out.println(dao.delete(44,1));
 		
 		/* 페이징테스트 */
 //		System.out.println(dao.list(1,5));

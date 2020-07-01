@@ -51,7 +51,7 @@ public class BoardController extends HttpServlet {
 			int user_no = Integer.parseInt(rq.getParameter("user_no"));
 			
 			dao.update(new BoardVo(no, title, content, user_no));
-			WebUtil.redirect(rq, rs, "/mysite2/board?action=list");
+			WebUtil.redirect(rq, rs, "/mysite2/board?action=list&pg=1");
 		
 		}else if("writeForm".equals(action)) {
 			WebUtil.forword(rq, rs, "/WEB-INF/views/board/writeForm.jsp");
@@ -62,13 +62,14 @@ public class BoardController extends HttpServlet {
 			String content = rq.getParameter("content");
 			dao.insert(new BoardVo(title, content, user_no));
 			
-			WebUtil.redirect(rq, rs, "/mysite2/board?action=list");
+			WebUtil.redirect(rq, rs, "/mysite2/board?action=list&pg=1");
 		
 		}else if("delete".equals(action)) {
 			int no = Integer.parseInt(rq.getParameter("no"));
 			int user_no = Integer.parseInt(rq.getParameter("user_no"));
+			
 			dao.delete(no, user_no);
-			WebUtil.redirect(rq, rs, "/mysite2/board?action=list");
+			WebUtil.redirect(rq, rs, "/mysite2/board?action=list&pg=1");
 			
 		}else if("search".equals(action)) {
 			String keyword = rq.getParameter("keyword");
