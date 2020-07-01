@@ -206,8 +206,9 @@ public class BoardDao {
 				int hit = rs.getInt("hit");
 				String reg_date = rs.getString("reg_date");
 				int user_no = rs.getInt("user_no");
-
-				BoardVo vo = new BoardVo(no, title, content, hit, reg_date, user_no);
+				String name = rs.getString("name");
+				
+				BoardVo vo = new BoardVo(no, title, content, hit, reg_date, user_no, name);
 				personList.add(vo);
 			}
 
