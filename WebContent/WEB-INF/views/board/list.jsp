@@ -71,23 +71,24 @@
 							</c:forEach>
 					
 							
-							
 						</tbody>
 					</table>
-		
 					<div id="paging">
 						<ul>
 							<li><a href="">◀</a></li>
-							<li><a href="">1</a></li>
-							<li><a href="">2</a></li>
-							<li><a href="">3</a></li>
-							<li><a href="">4</a></li>
-							<li class="active"><a href="">5</a></li>
-							<li><a href="">6</a></li>
-							<li><a href="">7</a></li>
-							<li><a href="">8</a></li>
-							<li><a href="">9</a></li>
-							<li><a href="">10</a></li>
+							
+							<c:forEach var="item" begin="${requestScope.pg.page_Start }" end="${requestScope.pg.page_End}" >
+							
+									<c:if test="${param.pg eq item}">
+										<li class="active"><a href="/mysite2/board?action=list&pg=${item }"><c:out value="${item }"/></a></li>
+									</c:if>
+									 
+									<c:if test="${param.pg != item }">
+									<li><a href="/mysite2/board?action=list&pg=${item }"><c:out value="${item }"/></a></li>
+									</c:if>
+								
+							</c:forEach>
+						
 							<li><a href="">▶</a></li>
 						</ul>
 						

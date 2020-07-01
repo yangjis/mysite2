@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.javaex.dao.BoardDao;
 import com.javaex.util.WebUtil;
 import com.javaex.vo.BoardVo;
+import com.javaex.vo.PagingVo;
 
 @WebServlet("/board")
 public class BoardController extends HttpServlet {
@@ -24,8 +25,17 @@ public class BoardController extends HttpServlet {
 		
 		String action = rq.getParameter("action");
 		if("list".equals(action)) {
-			List<BoardVo> bList = dao.list();
+			PagingVo pg = new PagingVo(5, 5,dao.allpag(), Integer.parseInt(rq.getParameter("pg")));
+			
+			int start = Integer.parseInt(rq.getParameter("pg"));
+			int end = 1;
+			end = end* 5;
+			
+			List<BoardVo> bList = dao.count(start, end);
+			
+			rq.setAttribute("pg", pg);
 			rq.setAttribute("bList", bList);
+			
 			WebUtil.forword(rq, rs,"/WEB-INF/views/board/list.jsp");
 			
 		}else if("read".equals(action)) {

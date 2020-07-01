@@ -64,7 +64,7 @@ public class BoardDao {
 			String query = "select b.no no, b.title title, b.content content, b.hit hit, TO_CHAR(b.reg_date, 'YY/MM/DD HH24:mi') reg_date, b.user_no user_no, u.name name from board b,(select name, no from users)u where b.user_no = u.no(+) order by reg_date desc";
 
 			pstmt = conn.prepareStatement(query); 
-
+			
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -255,22 +255,57 @@ public class BoardDao {
 
 	}
 	
-	public int count() {
-		int count = 0;
+	public List<BoardVo> count(int start, int end) {
+		List<BoardVo> boardList = new ArrayList<BoardVo>();
 		getConnection();
 		
 		try {
 
-			String query = "SELECT rn, no, title, name, hit, reg_date, user_no FROM (SELECT rownum rn, no, title, name, hit, reg_date, user_no FROM (SELECT b.no no, b.title title, u.name name, b.hit hit, to_char(b.reg_date,'yyyy-mm-dd hh24:mi') reg_date, b.user_no user_no FROM board b, users u where b.user_no = u.no order by no desc)) where rn >= 5 and rn <= 10";
+			String query = "SELECT no, title, name, hit, reg_date, user_no FROM (SELECT rownum rn, no, title, name, hit, reg_date, user_no FROM (SELECT b.no no, b.title title, u.name name, b.hit hit, to_char(b.reg_date,'yyyy-mm-dd hh24:mi') reg_date, b.user_no user_no FROM board b, users u where b.user_no = u.no order by no desc)) where rn >= ? and rn <= ?";
+			System.out.println(query.toString());
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				int no = rs.getInt("no");
+				String title = rs.getString("title");
+				String name = rs.getString("name");
+				int hit = rs.getInt("hit");
+				String reg_date = rs.getString("reg_date");
+				int user_no = rs.getInt("user_no");
 
-			pstmt = conn.prepareStatement(query); 
-
-			count = pstmt.executeUpdate(); 
-
+				BoardVo boardVo = new BoardVo(no, title, hit, reg_date, user_no, name);
+				boardList.add(boardVo);
+			}
 
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		}
+		close();
+		return boardList;
+	}
+	
+	public int allpag() {
+		int count = 0;
+		getConnection();
+		
+		try {
+			String query = "select count(*) count from board";
+			pstmt = conn.prepareStatement(query);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				count = rs.getInt("count"); 
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		
 		close();
 		return count;
 	}
