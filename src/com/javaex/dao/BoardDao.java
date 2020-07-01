@@ -261,7 +261,7 @@ public class BoardDao {
 		
 		try {
 
-			String query = "SELECT rn, no, title, name, hit, reg_date, user_no FROM (SELECT rownum rn, no, title, name, hit, reg_date, user_no FROM (SELECT b.no no, b.title title, u.name name, b.hit hit, to_char(b.reg_date,'yyyy-mm-dd hh24:mi') reg_date, b.user_no user_no FROM board b, users u where b.user_no = u.no order by no desc)) where rn >= 5 and rn <= 10;";
+			String query = "SELECT rn, no, title, name, hit, reg_date, user_no FROM (SELECT rownum rn, no, title, name, hit, reg_date, user_no FROM (SELECT b.no no, b.title title, u.name name, b.hit hit, to_char(b.reg_date,'yyyy-mm-dd hh24:mi') reg_date, b.user_no user_no FROM board b, users u where b.user_no = u.no order by no desc)) where rn >= 5 and rn <= 10";
 
 			pstmt = conn.prepareStatement(query); 
 
