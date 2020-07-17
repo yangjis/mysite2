@@ -3,12 +3,12 @@ package com.javaex.util;
 import com.javaex.dao.BoardDao;
 
 public class Paging {
-	 BoardDao dao = new BoardDao(); 
+	 
 	 public int w_size = 5; // 글 개수
 	 public int p_size = w_size * 5;  // 페이지 개수
 	 public int writing_Count = 0;
 	 
-	 public int cur_Page = 0;
+	 public int cur_Page = 0;	//현재페이지
 	 
 	 public Paging(int w_size, int p_size, int writing_Count,  int cur_Page) {
 	  this.w_size = w_size;
